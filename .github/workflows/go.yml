@@ -1,26 +1,47 @@
+
+
+
+name: Is compiling?
+
 on:
   push:
     branches:
-      - main
+    - main
+    - master
+    - staging
+    - develop
+  pull_request:
+    branches:
+    - master
+    - staging
+    - develop
 
-env:
-  API_KEY: ${{ secrets.API_KEY }}
-  TELEGRAM_KEY: ${{ secrets.TELEGRAM_KEY }}
-
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # The "build" workflow
   build:
     runs-on: ubuntu-latest
+
+    env:
+      API_KEY: ${{ secrets.API_KEY }}
+      TELEGRAM_KEY: ${{ secrets.TELEGRAM_KEY }}
+
     steps:
-    - name: Set up Go
-      uses: actions/setup-go@v3.5.0
-      with:
-        go-version: 1.20
-    - name: Checkout code
-      uses: actions/checkout@v3.3.0
-    - name: Build and run Go program
-      env:
-        API_KEY: ${{ secrets.API_KEY }}
-        TELEGRAM_KEY: ${{ secrets.TELEGRAM_KEY }}
-      run: |
-        go mod init
-        go run main.go
+      - uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.20'
+
+      - name: Install dependencies
+        run: |
+          go version
+          go get -u golang.org/x/lint/golint
+
+      - name: Run build
+        run: go build .
+
+      - name: Run run
+        run: go run .
+      
