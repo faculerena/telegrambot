@@ -22,4 +22,6 @@ jobs:
         API_KEY: ${{ secrets.API_KEY }}
         TELEGRAM_KEY: ${{ secrets.TELEGRAM_KEY }}
       run: |
+        go mod download
+        go build main.go
         go run main.go
