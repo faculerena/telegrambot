@@ -23,4 +23,4 @@ jobs:
         TELEGRAM_KEY: ${{ secrets.TELEGRAM_KEY }}
       run: |
         go mod init
-        go run main.go
+        go build .
