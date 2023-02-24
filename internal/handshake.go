@@ -6,34 +6,35 @@ import (
 	"image"
 	"image/color"
 	"image/jpeg"
+	"log"
 	"os"
 )
 
-func Handshake(a string, b string, c string) {
+func Handshake(a string, b string, c string) error {
 	// Open the image file
-	imgFile, err := os.Open("./images/handshake.jpg")
+	imgFile, err := os.Open("/assets/handshake.jpg")
 	if err != nil {
-		fmt.Println("Error opening image file:", err)
-		return
+		log.Println("Error opening image file:", err)
+		return err
 	}
 	defer imgFile.Close()
 
 	// Decode the image file into an image.Image
 	img, _, err := image.Decode(imgFile)
 	if err != nil {
-		fmt.Println("Error decoding image file:", err)
-		return
+		log.Println("Error decoding image file:", err)
+		return err
 	}
 
 	// Create a new image context to draw onto
 	dc := gg.NewContextForImage(img)
 
 	// Load the font file and create a FontFace
-	fontFile := "./fonts/impact.ttf" // Replace with the path to your own TrueType font file
+	fontFile := "/assets/impact.ttf" // Replace with the path to your own TrueType font file
 	fontFace, err := gg.LoadFontFace(fontFile, 48)
 	if err != nil {
-		fmt.Println("Error loading font file:", err)
-		return
+		log.Println("Error loading font file:", err)
+		return err
 	}
 	dc.SetFontFace(fontFace)
 
@@ -52,14 +53,15 @@ func Handshake(a string, b string, c string) {
 	dc.DrawStringWrapped(c, xc, yc, 0.7, 0.0, maxWidth, 1.2, gg.AlignCenter)
 
 	// Save the edited image to a new file
-	outputImgFile, err := os.Create("./output/output.jpg")
+	outputImgFile, err := os.Create("/assets/output.jpg")
 	if err != nil {
-		fmt.Println("Error creating output file:", err)
-		return
+		log.Println("Error creating output file:", err)
+		return err
 	}
 	defer outputImgFile.Close()
 
 	// Encode the edited image as JPEG and write it to the output file
 	jpeg.Encode(outputImgFile, dc.Image(), nil)
 	fmt.Println("Text added to image successfully!")
+	return nil
 }
