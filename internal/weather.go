@@ -41,28 +41,26 @@ type WeatherDataCurrent struct {
 	} `json:"current"`
 }
 
-func makeUrl(key string) (url string) {
+func makeUrl(key string, gps string) (url string) {
 
-	gps := "Buenos_Aires"
 	url = fmt.Sprintf("https://api.weatherapi.com/v1/current.json?key=" + key + "&q=" + gps + "&aqi=no")
-	fmt.Println(url)
 	return url
 }
 
-func GetCurrent() (WeatherDataCurrent, error) {
+func GetCurrent(gps string) (WeatherDataCurrent, error) {
 	var weatherData WeatherDataCurrent
 	weatherKey := os.Getenv("API_KEY")
 
-	response, err := http.Get(makeUrl(weatherKey))
+	response, err := http.Get(makeUrl(weatherKey, gps))
 	if err != nil {
-		fmt.Println("Error in response:", err)
+		log.Println("Error in response:", err)
 		return weatherData, err
 	}
 	defer response.Body.Close()
 
 	err = json.NewDecoder(response.Body).Decode(&weatherData)
 	if err != nil {
-		fmt.Println("Error: decoding", err)
+		log.Println("Error: decoding", err)
 		return weatherData, err
 	}
 
@@ -70,8 +68,8 @@ func GetCurrent() (WeatherDataCurrent, error) {
 
 }
 
-func Current(update tgbotapi.Update) tgbotapi.MessageConfig {
-	weatherData, err := GetCurrent()
+func Current(update tgbotapi.Update, gps string) tgbotapi.MessageConfig {
+	weatherData, err := GetCurrent(gps)
 	if err != nil {
 		log.Println(err)
 	}
