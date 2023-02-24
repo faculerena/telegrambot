@@ -1,4 +1,5 @@
 # Telegram Bot Readme
+[![Is compiling?](https://github.com/faculerena/telegrambot/actions/workflows/go.yml/badge.svg)](https://github.com/faculerena/telegrambot/actions/workflows/go.yml)
 
 This is a Telegram bot that can provide current weather information and memes.
 
