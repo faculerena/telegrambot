@@ -59,7 +59,6 @@ func GetCurrent() (WeatherDataCurrent, error) {
 		return weatherData, err
 	}
 	defer response.Body.Close()
-	fmt.Println(response)
 
 	err = json.NewDecoder(response.Body).Decode(&weatherData)
 	if err != nil {
