@@ -13,7 +13,7 @@ To get current weather information for a specific city, use the following comman
 ```
 /current [city]
 ```
-![Current weather example](assets/current_paris.png)
+![Current](assets/current_paris.png)
 
 
 To get the forecast for the next 3 days, use the following command:
@@ -21,7 +21,7 @@ To get the forecast for the next 3 days, use the following command:
 ```
 /nextdays [city]
 ```
-![Forecast weather example](assets/forecast_paris.png)
+![Forecast](assets/forecast_paris.png)
 
 The bot will respond with the forecasted weather conditions for the next 3 days for the specified city.
 
@@ -44,7 +44,7 @@ Example:
 
 returns:
 
-![Two hands, left hand "foo" and right hand "bar" handshaking in "foobar"](assets/foobar_handshake.jpg)
+![Handshake](assets/foobar_handshake.jpg)
 
 
 # More Info
