@@ -77,14 +77,6 @@ func main() {
 				if err != nil {
 					log.Println(err)
 				}
-			case "cat":
-				msg := tgbotapi.NewPhotoUpload(update.Message.Chat.ID, internal.GetCat())
-				msg.Caption = "Enjoy this cat"
-
-				_, err = bot.Send(msg)
-				if err != nil {
-					log.Println("Error sending photo: ", err)
-				}
 			}
 
 		}
