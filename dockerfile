@@ -6,8 +6,8 @@ COPY .. .
 
 RUN go mod download
 
-RUN go build -o app
+RUN go build -o ./build/hourlyWeatherBot
 
 EXPOSE 8080
 
-CMD ["./app"]
+CMD ["./build/hourlyWeatherBot"]
